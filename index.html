@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STOPWATCH</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="stopwatch">
+      <h1 id="display-time">00:00:00</h1>
+      <div class="btn">
+        <img src="images/stop.png" alt="" onclick="watchstop()" />
+        <img src="images/start.png" alt="" onclick="watchstart()" />
+        <img src="images/reset.png" alt="" / onclick="watchreset()">
+      </div>
+    </div>
+    <script>
+      let [second, minute, hours] = [0, 0, 0];
+      let display_time = document.getElementById("display-time");
+      let timer = null;
+      function stopwatch() {
+        second++;
+        if (second == 60) {
+          second = 0;
+          minute++;
+          if (minute == 60) {
+            minute = 0;
+            hours++;
+          }
+        }
+
+        let h = hours < 10 ? "0" + hours : hours;
+        let m = hours < 10 ? "0" + minute : minute;
+        let s = hours < 10 ? "0" + second : second;
+        display_time.innerHTML = h + ":" + m + ":" + s;
+      }
+      function watchstart() {
+        if (timer !== null) {
+          clearInterval(timer);
+        }
+        timer = setInterval(stopwatch, 1000);
+      }
+      function watchstop() {
+        clearInterval(timer);
+      }
+      function watchreset() {
+        clearInterval(timer);
+        [second, minute, hours] = [0, 0, 0];
+        display_time.innerHTML = "00:00:00";
+      }
+    </script>
+  </body>
+</html>
